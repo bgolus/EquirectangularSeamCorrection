@@ -9,7 +9,7 @@ Seam Correction:
  * Explicit LOD - calculates the best mip level in the shader. cheap, but no anisotropic filtering.
  * Explicit Gradients - calculates the best gradients in the shader, potentially expensive, but works with coarse or fine derivatives and anisotropic filtering.
  * Coarse Emulation - reproduces the equivalent of coarse derivatives regardless of what accuracy is available via in quad communication. cheap, works with coarse and fine derivatives, and anisotropic filtering. does not work on Apple or Mali GPUs.
- * Whole Quad Derivatives - gets the worst derivatives from the whole quad via in quad communication. cheap, works with coarse and fine derivatives, and anisotropic filtering. should be used over coarse emulation. may not work on ARM based Windows devices.
+ * Least Worst Quad Derivatives - gets the worst derivatives from the whole quad via in quad communication. cheap, works with coarse and fine derivatives, and anisotropic filtering. should be used over coarse emulation. may not work on ARM based Windows devices.
 
 Derivative Accuracy:
  * Default - uses base ddx / ddy / fwidth functions
