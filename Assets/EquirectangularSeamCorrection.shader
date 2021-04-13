@@ -7,7 +7,7 @@ Shader "Equirectangular Seam Correction"
     {
         [NoScaleOffset] _MainTex ("Texture", 2D) = "white" {}
         [KeywordEnum(Default, Coarse, Fine)] _Accuracy ("fwidth Accuracy", Float) = 0
-        [KeywordEnum(None, Tarini, Explicit LOD, Explicit Gradients, Coarse Emulation, Whole Quad Derivatives)] _SeamCorrection ("Seam Correction", Float) = 0
+        [KeywordEnum(None, Tarini, Explicit LOD, Explicit Gradients, Coarse Emulation, Least Worst Quad Derivatives)] _SeamCorrection ("Seam Correction", Float) = 0
     }
     SubShader
     {
@@ -21,7 +21,7 @@ Shader "Equirectangular Seam Correction"
             #pragma fragment frag
 
             #pragma multi_compile_local _ _ACCURACY_COARSE _ACCURACY_FINE
-            #pragma multi_compile_local _ _SEAMCORRECTION_TARINI _SEAMCORRECTION_EXPLICIT_LOD _SEAMCORRECTION_EXPLICIT_GRADIENTS _SEAMCORRECTION_COARSE_EMULATION _SEAMCORRECTION_WHOLE_QUAD_DERIVATIVES
+            #pragma multi_compile_local _ _SEAMCORRECTION_TARINI _SEAMCORRECTION_EXPLICIT_LOD _SEAMCORRECTION_EXPLICIT_GRADIENTS _SEAMCORRECTION_COARSE_EMULATION _SEAMCORRECTION_LEAST_WORST_QUAD_DERIVATIVES
 
             #pragma target 5.0
 
@@ -147,7 +147,7 @@ Shader "Equirectangular Seam Correction"
                 // sample the texture using our own derivatives
                 fixed4 col = tex2Dgrad(_MainTex, uv, dx, dy);
 
-            #elif defined(_SEAMCORRECTION_COARSE_EMULATION) || defined(_SEAMCORRECTION_WHOLE_QUAD_DERIVATIVES)
+            #elif defined(_SEAMCORRECTION_COARSE_EMULATION) || defined(_SEAMCORRECTION_LEAST_WORST_QUAD_DERIVATIVES)
                 // get position within quad
                 int2 pixelQuadPos = uint2(i.pos.xy) % 2;
                 float2 pixelQuadDir = float2(pixelQuadPos) * 2.0 - 1.0;
@@ -179,7 +179,7 @@ Shader "Equirectangular Seam Correction"
                     phi_dx = phi_dxy;
                     phi_frac_dx = phi_frac_dxy;
                 }
-            #elif defined(_SEAMCORRECTION_WHOLE_QUAD_DERIVATIVES)
+            #elif defined(_SEAMCORRECTION_LEAST_WORST_QUAD_DERIVATIVES)
                 // get the worst derivatives for the entire quad
                 phi_dx = max(abs(phi_dx), abs(phi_dxy));
                 phi_dy = max(abs(phi_dy), abs(phi_dyx));
