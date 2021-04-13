@@ -1750,7 +1750,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Coarse Emulation
       m_Image: {fileID: 0}
-    - m_Text: Whole Quad Comm
+    - m_Text: Whole Quad Derivatives
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
