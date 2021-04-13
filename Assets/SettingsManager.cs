@@ -57,12 +57,12 @@ public class SettingsManager : MonoBehaviour
     	mat.DisableKeyword("_SEAMCORRECTION_EXPLICIT_LOD");
     	mat.DisableKeyword("_SEAMCORRECTION_EXPLICIT_GRADIENTS");
     	mat.DisableKeyword("_SEAMCORRECTION_COARSE_EMULATION");
-        mat.DisableKeyword("_SEAMCORRECTION_WHOLE_QUAD_DERIVATIVES");
+        mat.DisableKeyword("_SEAMCORRECTION_LEAST_WORST_QUAD_DERIVATIVES");
 
     	switch(val)
     	{
             case 5:
-                mat.EnableKeyword("_SEAMCORRECTION_WHOLE_QUAD_DERIVATIVES");
+                mat.EnableKeyword("_SEAMCORRECTION_LEAST_WORST_QUAD_DERIVATIVES");
                 break;
     		case 4:
     			mat.EnableKeyword("_SEAMCORRECTION_COARSE_EMULATION");
